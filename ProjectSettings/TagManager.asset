@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pick Up
+  - Pick Ups
+  - Status Change
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Walls
   - 
   - 
   - 
