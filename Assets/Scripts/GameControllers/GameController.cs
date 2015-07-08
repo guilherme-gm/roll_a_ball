@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 	public Text GameTimeText;
 	public bool IsPaused { get; private set; }
 
-	private float GameTime = 0f;
+	public float GameTime = 0f;
 	private float DefaultTimeScale;
 
 	void Start()

@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
 		CountText.text = "Count: " + Count.ToString();
 		if (Count >= 11) {
 			WinText.text = "You Win!";
+			IORanking.UpdateRank(Constants.Levels.Level01, GameController.Instance.GameTime, Count);
 		}
 	}
 
