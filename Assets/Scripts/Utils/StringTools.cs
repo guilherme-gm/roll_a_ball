@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Text;
 using System.Collections;
 
 // Source: http://www.dotnetperls.com/truncate
@@ -18,5 +19,22 @@ public static class StringTool
 			source = source.Substring(0, length);
 		}
 		return source;
+	}
+
+	public static string GetString(byte[] bytes)
+	{
+		byte[] str = new byte[bytes.Length];
+		int i = 0;
+
+		for (i = 0; i < bytes.Length; i++)
+		{
+			if (bytes[i] != 0x00)
+				str[i] = bytes[i];
+			else
+				break;
+		}
+
+		if (i <= 0) return "";
+		return Encoding.ASCII.GetString (str);
 	}
 }

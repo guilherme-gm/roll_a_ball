@@ -28,6 +28,10 @@ public class RankingData
 
 	public RankingData()
 	{
-		this.Ranks = new Rank[(int)MaxEntries];
+		this.Ranks = new Rank[(int)IORanking.Ranking.Max];
+		for (int i = 0; i < (int)IORanking.Ranking.Max; i++)
+		{
+			this.Ranks[i] = new Rank();
+		}
 	}
 }

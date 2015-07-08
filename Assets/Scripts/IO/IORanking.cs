@@ -41,24 +41,26 @@ public static class IORanking
 			// levelRank[LevelCount]
 			for (int level = 0; level < (int)Constants.Levels.Max; level++)
 			{
+				rd[level] = new RankingData();
+
 				// Score Entries [MaxEntries]
 				for (int i = 0; i < RankingData.MaxEntries; i++)
 				{
-					rd[level].Ranks[(int)Ranking.BestScore].Name[i] = Encoding.ASCII.GetString(br.ReadBytes(20));
+					rd[level].Ranks[(int)Ranking.BestScore].Name[i] = StringTool.GetString(br.ReadBytes(20));
 					rd[level].Ranks[(int)Ranking.BestScore].Score[i] = br.ReadSingle();
 				}
 
 				// Time Entries [MaxEntries]
 				for (int i = 0; i < RankingData.MaxEntries; i++)
 				{
-					rd[level].Ranks[(int)Ranking.BestTime].Name[i] = Encoding.ASCII.GetString(br.ReadBytes(20));
+					rd[level].Ranks[(int)Ranking.BestTime].Name[i] = StringTool.GetString(br.ReadBytes(20));
 					rd[level].Ranks[(int)Ranking.BestTime].Score[i] = br.ReadSingle();
 				}
 
 				// ScoreTime Entries [MaxEntries]
 				for (int i = 0; i < RankingData.MaxEntries; i++)
 				{
-					rd[level].Ranks[(int)Ranking.BestScoreTime].Name[i] = Encoding.ASCII.GetString(br.ReadBytes(20));
+					rd[level].Ranks[(int)Ranking.BestScoreTime].Name[i] = StringTool.GetString(br.ReadBytes(20));
 					rd[level].Ranks[(int)Ranking.BestScoreTime].Score[i] = br.ReadSingle();
 				}
 			}
