@@ -6,4 +6,28 @@ public class Constants {
 		public const string PickUps = "Pick Up";
 		public const string SC = "Status Change";
 	}
+
+	public enum Levels {
+		Level01 = 0,
+		Level02 = 1,
+		Level03 = 2,
+
+		Max // Deve sempre ser o ultimo
+	}
+}
+public class RankingData
+{
+	public const int MaxEntries = 10;
+	
+	public class Rank {
+		public string[] Name = new string[MaxEntries];
+		public float[] Score = new float[MaxEntries];
+	}
+	
+	public Rank[] Ranks { get; set; }
+
+	public RankingData()
+	{
+		this.Ranks = new Rank[(int)MaxEntries];
+	}
 }
