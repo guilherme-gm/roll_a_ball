@@ -18,6 +18,14 @@ public class LevelSelectorController : MonoBehaviour
 
 	// UI References
 	public Text PointsText;
+	// Level Info
+	public Text LevelNameText;
+	public Image LevelImage;
+	public Text LevelDescText;
+
+	public GameObject PreviewDisplay;
+	public Transform LevelList;
+	public GameObject LevelEntry;
 
 	// 
 	public LevelInfo[] Levels = new LevelInfo[10];
@@ -33,6 +41,18 @@ public class LevelSelectorController : MonoBehaviour
 			return;
 		}
 
+		foreach (Transform child in LevelList) {
+			GameObject.Destroy(child);
+		}
+
+		for (int i = 0; i < Levels.Length; i++) {
+			GameObject lvlBtn = GameObject.Instantiate(LevelEntry) as GameObject;
+			LevelEntryUI lvEntry = lvlBtn.GetComponent<LevelEntryUI>();
+			lvEntry.UpdateDisplay(Levels[i]);
+
+			lvlBtn.transform.SetParent(LevelList);
+		}
+
 		PointsText.text = "Pontos: " + DataKeeper._Instance.Profile.Points;
 	}
 
@@ -46,8 +66,12 @@ public class LevelSelectorController : MonoBehaviour
 		Application.LoadLevel (Constants.MainMenu);
 	}
 
-	public void OnLevelSelect()
+	public void OnLevelSelect(LevelInfo info)
 	{
+		LevelNameText.text = info.Name;
+		LevelImage.sprite = info.BigScreen;
+		LevelDescText.text = info.Description;
 
+		PreviewDisplay.SetActive (true);
 	}
 }
