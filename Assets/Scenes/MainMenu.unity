@@ -275,7 +275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &174379526
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,45 +572,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 500507483}
---- !u!1 &533199905
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 533199907}
-  - 114: {fileID: 533199906}
-  m_Layer: 0
-  m_Name: DataKeeper
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &533199906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 533199905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e262bbea6476da44caa829e204aa9a8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &533199907
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 533199905}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
 --- !u!1 &567279376
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3a26d5c2771ac44baa36070384f204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DataKeeperObject: {fileID: 113510, guid: dbfc2e7397565b44a91b1446f7a4e351, type: 2}
   MainPanel: {fileID: 1470497734}
   ContinueButton: {fileID: 1575145335}
   RankingPanel: {fileID: 1556729236}
@@ -791,7 +753,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &795508494
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +942,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &839233277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &954232124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2103,7 +2065,7 @@ RectTransform:
   - {fileID: 1470497735}
   - {fileID: 1556729237}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}

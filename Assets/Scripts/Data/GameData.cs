@@ -5,10 +5,12 @@ public class Constants {
 	public class Tags {
 		public const string PickUps = "Pick Up";
 		public const string SC = "Status Change";
+		public const string GController = "GameController";
 	}
 
 	public const string MainMenu = "MainMenu";
 	public const string LevelSelect = "LevelSelector";
+	public const string Shop = "Shop";
 
 	public enum Levels {
 		Level01 = 0,
@@ -18,6 +20,7 @@ public class Constants {
 		Max // Deve sempre ser o ultimo
 	}
 }
+
 public class RankingData
 {
 	public const int MaxEntries = 10;

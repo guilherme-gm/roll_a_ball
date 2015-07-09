@@ -6,6 +6,8 @@ public class MainMenuController : MonoBehaviour
 {
 	public static MainMenuController Instance;
 
+	public GameObject DataKeeperObject;
+
 	// Main
 	public GameObject MainPanel;
 	public GameObject ContinueButton;
@@ -32,6 +34,9 @@ public class MainMenuController : MonoBehaviour
 
 	private void Start()
 	{
+		if (DataKeeper._Instance == null)
+			GameObject.Instantiate (DataKeeperObject);
+
 		IORanking.Init ();
 		IOUserProfile.Init ();
 		IOUserProfile.GetProfiles ();
@@ -167,7 +172,7 @@ public class MainMenuController : MonoBehaviour
 	{
 		UserProfile prof = IOUserProfile.LoadProfile (name);
 
-		DataKeeper.Instance.Profile = prof;
+		DataKeeper._Instance.Profile = prof;
 
 		Application.LoadLevel (Constants.LevelSelect);
 	}
