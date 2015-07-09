@@ -7,6 +7,9 @@ public class Constants {
 		public const string SC = "Status Change";
 	}
 
+	public const string MainMenu = "MainMenu";
+	public const string LevelSelect = "LevelSelector";
+
 	public enum Levels {
 		Level01 = 0,
 		Level02 = 1,

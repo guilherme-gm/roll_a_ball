@@ -4,48 +4,127 @@ using System.Collections;
 
 public class MainMenuController : MonoBehaviour
 {
+	public static MainMenuController Instance;
+
+	// Main
 	public GameObject MainPanel;
+	public GameObject ContinueButton;
+
+	// Ranking
 	public GameObject RankingPanel;
 	public GameObject RanksPanel;
 	public GameObject RankEntry;
-	public GameObject LoadPanel;
 
+	// Play
 	public GameObject PlayPanel;
 
+	// Load
+	public GameObject LoadPanel;
+	public Transform LoadListPanel;
+	public GameObject ProfileEntry;
 
+	// New Game
+	public GameObject NewGamePanel;
+	
+	// Privates
 	private int CurRanking = 0;
 	private RankingData[] Rankings;
 
 	private void Start()
 	{
 		IORanking.Init ();
+		IOUserProfile.Init ();
+		IOUserProfile.GetProfiles ();
+
+		if (!IOUserProfile.LoadedProfile.Equals ("")) {
+			ContinueButton.SetActive(true);
+		}
+
+		Instance = this;
 	}
 
+	/* ****************** *
+	 * 		Main
+	 * ****************** */
 	public void OnContinueClick() {
+		if (IOUserProfile.LoadedProfile.Equals ("")) {
+			ContinueButton.SetActive(false);
+		}
 
+		LoadGame (IOUserProfile.LoadedProfile);
 	}
 
 	public void OnPlayClick() {
 		this.PlayPanel.SetActive (true);
 	}
 
+	public void OnQuitClick() {
+		Application.Quit();
+	}
+
+	/* ****************** *
+	 * 		Play
+	 * ****************** */
 	public void OnNewGameClick() {
-		Application.LoadLevel ("MiniGame");
+		NewGamePanel.SetActive (true);
 	}
 
 	public void OnLoadGameClick() {
+		
+		// Limpa qualquer child do painel de load
+		foreach (Transform load in LoadListPanel) {
+			GameObject.Destroy(load.gameObject);
+		}
+		
+		// Recebe a lista de perfis
+		string[] profs = IOUserProfile.GetProfiles ();
+		
+		// Cria uma lista de perfis
+		for (int i = 0; i < profs.Length; i++) {
+			GameObject loadBtn = Instantiate(this.ProfileEntry) as GameObject;
+			MainMenuUIProfiles btnData = loadBtn.GetComponent<MainMenuUIProfiles>();
+			btnData.UpdateDisplay(profs[i].Replace("Data/userprof-", "").Replace(".dat", ""));
+			loadBtn.transform.SetParent(LoadListPanel);
+		}
+		
 		this.LoadPanel.SetActive (true);
 	}
 
+	/* ****************** *
+	 * 		New Game
+	 * ****************** */
+	public void OnNewGameCreateClick(Text input) {
+
+	}
+
+	public void OnNewGameCancelClick() {
+		this.NewGamePanel.SetActive (false);
+	}
+
+
+	/* ****************** *
+	 * 		Load
+	 * ****************** */
+	public void OnProfileLoad(string name)
+	{
+		LoadGame ("Data/userprof-"+name+".dat");
+	}
+
+	public void OnLoadCloseClick()
+	{
+		LoadPanel.SetActive (false);
+	}
+
+
+
+	/* ****************** *
+	 * 		Ranking
+	 * ****************** */
 	public void OnRankingClick() {
 		this.MainPanel.SetActive (false);
 		this.RankingPanel.SetActive (true);
-
+		
 		this.Rankings = IORanking.Load ();
-	}
-
-	public void OnQuitClick() {
-		Application.Quit();
 	}
 
 	public void OnRankingCloseClick() {
@@ -74,5 +153,17 @@ public class MainMenuController : MonoBehaviour
 	private void UpdateRankDisplay()
 	{
 
+	}
+
+	// =================================
+	// 			Internals
+	// =================================
+	private void LoadGame(string name)
+	{
+		UserProfile prof = IOUserProfile.LoadProfile (name);
+
+		DataKeeper.Instance.Profile = prof;
+
+		Application.LoadLevel (Constants.LevelSelect);
 	}
 }
