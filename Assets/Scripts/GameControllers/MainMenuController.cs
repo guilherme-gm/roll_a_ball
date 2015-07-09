@@ -94,7 +94,12 @@ public class MainMenuController : MonoBehaviour
 	 * 		New Game
 	 * ****************** */
 	public void OnNewGameCreateClick(Text input) {
+		UserProfile prof = new UserProfile ();
+		prof.Name = input.text;
 
+		IOUserProfile.SaveProfile (prof);
+
+		LoadGame ("Data/userprof-" + prof.Name + ".dat");
 	}
 
 	public void OnNewGameCancelClick() {
