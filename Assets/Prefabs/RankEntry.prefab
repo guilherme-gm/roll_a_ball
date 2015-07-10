@@ -27,7 +27,7 @@ GameObject:
   - 224: {fileID: 22471866}
   - 114: {fileID: 11447486}
   m_Layer: 5
-  m_Name: Entry
+  m_Name: RankEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

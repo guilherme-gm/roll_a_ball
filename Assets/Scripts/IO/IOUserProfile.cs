@@ -23,6 +23,9 @@ public static class IOUserProfile
 
 	public static void Init()
 	{
+		if (!Directory.Exists("Data/"))
+		    Directory.CreateDirectory("Data/");
+
 		if (!File.Exists ("Data/roll-a-ball.dat")) {
 			File.WriteAllText("Data/roll-a-ball.dat", "");
 		}

@@ -14,7 +14,7 @@ public class MainMenuController : MonoBehaviour
 
 	// Ranking
 	public GameObject RankingPanel;
-	public GameObject RanksPanel;
+	public Transform RanksPanel;
 	public GameObject RankEntry;
 
 	// Play
@@ -30,6 +30,7 @@ public class MainMenuController : MonoBehaviour
 	
 	// Privates
 	private int CurRanking = 0;
+	private int CurRankLevel = 0;
 	private RankingData[] Rankings;
 
 	private void Start()
@@ -135,6 +136,8 @@ public class MainMenuController : MonoBehaviour
 		this.RankingPanel.SetActive (true);
 		
 		this.Rankings = IORanking.Load ();
+
+		UpdateRankDisplay ();
 	}
 
 	public void OnRankingCloseClick() {
@@ -160,11 +163,53 @@ public class MainMenuController : MonoBehaviour
 		UpdateRankDisplay ();
 	}
 
-	private void UpdateRankDisplay()
-	{
+	public void OnRankNextLevelClick () {
+		CurRankLevel++;
+		if (CurRanking >= (int)Constants.Levels.Max)
+			CurRankLevel = 0;
 
+		UpdateRankDisplay ();
 	}
 
+	public void OnRankPrevLevelClick() {
+		CurRankLevel--;
+		if (CurRanking < 0)
+			CurRankLevel = (int)Constants.Levels.Max -1;
+		
+		UpdateRankDisplay ();
+	}
+
+	private void UpdateRankDisplay()
+	{
+		foreach (Transform child in RanksPanel)
+			GameObject.Destroy (child.gameObject);
+
+		for (int i = 0; i < RankingData.MaxEntries; i++)
+		{
+			GameObject re = GameObject.Instantiate(RankEntry) as GameObject;
+			RankEntryObject rEntryObj = re.GetComponent<RankEntryObject>();
+			rEntryObj.UpdateDisplay(
+				i+1, 
+				Rankings[this.CurRanking].Ranks[this.CurRankLevel].Name[i],
+				this.RankFormat(Rankings[this.CurRanking].Ranks[this.CurRankLevel].Score[i])
+			);
+
+			re.transform.SetParent(RanksPanel);
+		}
+	}
+
+	private string RankFormat(float value)
+	{
+		switch ((IORanking.Ranking)CurRanking) {
+		case IORanking.Ranking.BestScore:
+			return "" + value;
+		case IORanking.Ranking.BestTime:
+			return "t" + value;
+		case IORanking.Ranking.BestScoreTime:
+			return "r" + value;
+		}
+		return "null";
+	}
 	// =================================
 	// 			Internals
 	// =================================

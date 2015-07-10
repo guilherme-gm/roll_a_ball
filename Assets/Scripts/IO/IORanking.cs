@@ -23,6 +23,27 @@ public static class IORanking
 		Max // Deve sempre ser o ultimo
 	}
 
+	public static void Init()
+	{
+		if (!Directory.Exists("Data/"))
+			Directory.CreateDirectory("Data/");
+		
+		// SE o arquivo de rankings nao existe, cria um novo
+		if (!File.Exists ("Data/ranking.dat")) {
+			Save(null);
+		}
+		
+		int ver = 0;
+		
+		using (BinaryReader br = new BinaryReader(File.OpenRead("Data/ranking.dat"))) {
+			ver = br.ReadInt32();
+			br.Close();
+		}
+		
+		if (ver != FileVersion)
+			Convert(ver);
+	}
+
 	/// <summary>
 	/// Loads the rankings file (Data/ranking.dat)
 	/// </summary>
@@ -71,27 +92,8 @@ public static class IORanking
 		return rd;
 	}
 
-	public static void Init()
-	{
-		// SE o arquivo de rankings nao existe, cria um novo
-		if (!File.Exists ("Data/rankings.dat")) {
-			Save(null);
-		}
-
-		int ver = 0;
-
-		using (BinaryReader br = new BinaryReader(File.OpenRead("Data/ranking.dat"))) {
-			ver = br.ReadInt32();
-			br.Close();
-		}
-
-		if (ver != FileVersion)
-			Convert(ver);
-	}
-
 	public static void UpdateRank(Constants.Levels level, float gameTime, int score)
 	{
-		Debug.Log (score);
 		RankingData[] rd = Load ();
 		bool needSave = false;
 		int curRank = RankingData.MaxEntries - 1;
@@ -227,7 +229,6 @@ public static class IORanking
 				{
 					for (int i = 0; i < RankingData.MaxEntries; i++)
 					{
-						Debug.Log(data [level].Ranks [(int)IORanking.Ranking.BestScore].Score [i]);
 						string name = StringTool.Truncate (data [level].Ranks [(int)IORanking.Ranking.BestScore].Name [i], 20);
 						bw.Write (Encoding.ASCII.GetBytes (name));
 						bw.Write (new byte[20 - name.Length]);

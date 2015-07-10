@@ -10,6 +10,7 @@ public class LevelInfo
 	public Sprite BigScreen;
 	public string Name;
 	public string Description;
+	public string File;
 }
 
 public class LevelSelectorController : MonoBehaviour
@@ -29,6 +30,7 @@ public class LevelSelectorController : MonoBehaviour
 
 	// 
 	public LevelInfo[] Levels = new LevelInfo[10];
+	private int SelectedLevel;
 
 	// Use this for initialization
 	void Start ()
@@ -48,7 +50,7 @@ public class LevelSelectorController : MonoBehaviour
 		for (int i = 0; i < Levels.Length; i++) {
 			GameObject lvlBtn = GameObject.Instantiate(LevelEntry) as GameObject;
 			LevelEntryUI lvEntry = lvlBtn.GetComponent<LevelEntryUI>();
-			lvEntry.UpdateDisplay(Levels[i]);
+			lvEntry.UpdateDisplay(Levels[i], i);
 
 			lvlBtn.transform.SetParent(LevelList);
 		}
@@ -66,12 +68,19 @@ public class LevelSelectorController : MonoBehaviour
 		Application.LoadLevel (Constants.MainMenu);
 	}
 
-	public void OnLevelSelect(LevelInfo info)
+	public void OnLevelSelect(int id)
 	{
-		LevelNameText.text = info.Name;
-		LevelImage.sprite = info.BigScreen;
-		LevelDescText.text = info.Description;
+		LevelNameText.text = Levels[id].Name;
+		LevelImage.sprite = Levels[id].BigScreen;
+		LevelDescText.text = Levels[id].Description;
+
+		this.SelectedLevel = id;
 
 		PreviewDisplay.SetActive (true);
+	}
+
+	public void OnPlayClick()
+	{
+		Application.LoadLevel (Levels [this.SelectedLevel].File);
 	}
 }
