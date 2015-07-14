@@ -7,11 +7,11 @@ public class UserProfile
 {
 	public string Name { get; set; }
 	public int Points { get; set; }
-	public byte[] LevelStatus { get; set; }
+	public int[] LevelInfo { get; set; }
 
 	public UserProfile()
 	{
-		this.LevelStatus = new byte[(int)Constants.Levels.Max];
+		this.LevelInfo = new int[(int)Constants.Levels.Max];
 		this.Points = 0;
 	}
 }
@@ -56,7 +56,7 @@ public static class IOUserProfile
 			prof.Points = br.ReadInt32();
 
 			for (int i = 0; i < (int)Constants.Levels.Max; i++) {
-				prof.LevelStatus[i] = br.ReadByte();
+				prof.LevelInfo[i] = br.ReadByte();
 			}
 		}
 
@@ -74,7 +74,7 @@ public static class IOUserProfile
 
 			for (int i = 0; i < (int)Constants.Levels.Max; i++)
 			{
-				bw.Write(profile.LevelStatus[i]);
+				bw.Write(profile.LevelInfo[i]);
 			}
 		}
 	}

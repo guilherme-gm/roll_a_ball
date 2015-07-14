@@ -11,6 +11,7 @@ public class LevelInfo
 	public string Name;
 	public string Description;
 	public string File;
+	public int MaxPoints;
 }
 
 public class LevelSelectorController : MonoBehaviour
@@ -23,6 +24,7 @@ public class LevelSelectorController : MonoBehaviour
 	public Text LevelNameText;
 	public Image LevelImage;
 	public Text LevelDescText;
+	public Text LevelPointsText;
 
 	public GameObject PreviewDisplay;
 	public Transform LevelList;
@@ -73,6 +75,7 @@ public class LevelSelectorController : MonoBehaviour
 		LevelNameText.text = Levels[id].Name;
 		LevelImage.sprite = Levels[id].BigScreen;
 		LevelDescText.text = Levels[id].Description;
+		LevelPointsText.text = DataKeeper._Instance.Profile.LevelInfo[id] + "/" + Levels [id].MaxPoints;
 
 		this.SelectedLevel = id;
 
