@@ -25,21 +25,32 @@ public class PlayerController : MonoBehaviour {
 			PowersData[i] = new Power();
 		}
 
+		// Limpa variaveis para iniciar
 		Count = 0;
 		SetCountText ();
 		WinText.text = "";
 	}
 
+	/// <summary>
+	/// Atualizaçoes de Fisca
+	/// </summary>
 	void FixedUpdate ()
 	{
+		// Recebe o valor dos eixos de movimento (WASD)
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
+		// Calcula o vetor para a força de movimento
 		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
+		// Aplica a força
 		RBody.AddForce (movement * Speed);
 	}
 
+	/// <summary>
+	/// Contato com triggers
+	/// </summary>
+	/// <param name="other">O outro objeto</param>
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.CompareTag (Tags.PickUp)) { // Ativaçao para Pick Ups
@@ -53,7 +64,9 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	//
+	// ============================
+	// 		Sistema de Powers	
+	// ============================
 
 	/// <summary>
 	/// Chamado para iniciar o efeito de um Power
@@ -117,7 +130,9 @@ public class PlayerController : MonoBehaviour {
 		display.SetActive (false);
 	}
 
-	//
+	// ============================
+	// 		Atualizaçoes de UI
+	// ============================
 	void SetCountText()
 	{
 		CountText.text = "Count: " + Count.ToString();
