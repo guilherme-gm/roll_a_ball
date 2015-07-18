@@ -16,21 +16,22 @@ public enum Powers {
 /// <summary>
 /// Define os dados de um power
 /// </summary>
+[System.Serializable]
 public class Power
 {
 	// O tipo de power
-	public Powers Type { get; set; }
+	public Powers Type;
 	// O nome (para display)
-	public string Name { get; set; }
+	public string Name = "UNAMED";
 	// Valores que auxiliares
-	public int Val1 { get; set; }
-	public int Val2 { get; set; }
+	public float Val1 = 0f;
+	public float Val2 = 0f;
 	// Duraçao
-	public float Duration { get; set; }
+	public float Duration = 0f;
 	// Up (true) / Down (False)
-	public bool IsGood { get; set; }
+	public bool IsGood = false;
 	// Referencia a Coroutine para timer
-	public Coroutine Routine { get; set; }
+	public Coroutine Routine = null;
 
 	// Checa se o Power esta ativo ou nao
 	public bool IsActive()
@@ -48,5 +49,5 @@ public class Power
 /// </summary>
 public class PowerObject : MonoBehaviour
 {
-	public Power PowerData { get; set; }
+	public Power PowerData;
 }

@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour {
 		// Inicializa a lista de powers
 		this.PowersData = new Power[(int)Powers.MAX];
 
+		for (int i = 0; i < (int)Powers.MAX; i++) {
+			PowersData[i] = new Power();
+		}
+
 		Count = 0;
 		SetCountText ();
 		WinText.text = "";
@@ -58,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	private void PowerStart(Power pObj)
 	{
 		// Se o efeito ja esta em execucao, encerra
-		if (this.PowersData[(int)pObj.Type] != null)
+		if (this.PowersData[(int)pObj.Type].Routine != null)
 			StopCoroutine(this.PowersData[(int)pObj.Type].Routine);
 		
 		// Atualiza a informaçao sobre o efeito
