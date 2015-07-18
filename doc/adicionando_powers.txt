@@ -1,0 +1,82 @@
+--------------
+Introdução
+--------------
+	Este guia explica como adicionar Powers	no Roll a Ball do Grupo Azul.
+
+--------------
+Parte I: Adicionando a Referência
+--------------
+	Todos os powers utilizam um enum como referência interna para
+	facilitar a escrita e configuração.
+	
+	Para adicionar uma nova referência abra o arquivo 
+	Scripts/PowerObject.cs
+	
+	Procure por:
+		public enum Powers {
+			[...]
+			// Deve sempre ser o ultimo
+			MAX
+		}
+	
+	Adicione antes do comentário:
+		<NomeDoPower>,
+	
+	Exemplo:
+		public enum Powers {
+			[...]
+			SpeedDown,
+			// Deve sempre ser o ultimo
+			MAX
+		}
+	
+--------------
+Parte II: Criando o Objeto/Prefab
+--------------
+	Com a referência criada, hora de criar o Prefab,
+	duplique o Prefab "Good Power Base" para Power Ups
+	ou "Bad Power Base" para Power Downs.
+	
+	Selecione seu novo prefab e no Inspector, procure
+	o script PowerObject, expanda o campo Power Data
+	e configure-o:
+		Type: A referência criada na Parte I
+		Name: O nome de exibição
+		Val1: Valor genérico para uso 1 (Veja Parte III)
+		Val2: Valor genérico para uso 2 (Veja Parte III)
+		Duration: Duração em segundos do efeito
+		Is Good: Se é um Power Up (marcado) ou Down (desmarcado)
+	
+	Exemplo:
+		Prefab: Bad Power Base
+		Type: Speed Down
+		Name: Speed DOWN!
+		Val1: 2 // Reduzirá pela metade
+		Val2: 0 // Não usado
+		Duration: 2.5 // 2 segundos e meio
+		IsGood: Desmarcado
+		
+--------------
+Parte III: Adicionando funcionamento
+--------------
+	Para fazer o Power ter um efeito na jogabilidade, abra
+	o arquivo Scripts/PlayerController.cs
+	
+	Esta etapa é bastante genérica e depende do que o power fará,
+	o exemplo fará o SpeedDown, mas os mesmos comandos podem ser
+	aplicados em qualquer parte do PlayerController.cs
+	
+	Procure pelo método FixedUpdate() e vá até a linha:
+		Vector3 movement = [...];
+	
+	Adicione após a linha:
+		if (this.PowersData [(int)Powers.SpeedDown].IsActive ())
+			movement = movement / this.PowersData [(int)Powers.SpeedDown].Val1;
+			
+	Entendendo:
+		O if checa se o efeito de SpeedDown está ativo, caso esteja,
+		faz a divisão do vetor movimento pelo valor de Val1 deste 
+		Power (Definido na Parte II).
+		
+		Esta divisão faz com que a próxima força tenha metade da intensidade,
+		reduzindo a velocidade.
